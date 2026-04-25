@@ -14,12 +14,19 @@ const countdownLabel = document.getElementById('countdownLabel');
 const countdownTarget = document.getElementById('countdownTarget');
 const countdownStatus = document.getElementById('countdownStatus');
 const daysEl = document.getElementById('days');
+const daysLargeEl = document.getElementById('daysLarge');
+const daysLargeLabelEl = document.getElementById('daysLargeLabel');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
 
 let deferredInstallPrompt = null;
 let state = loadState();
+const isWidgetMode = new URLSearchParams(window.location.search).get('view') === 'widget';
+
+if (isWidgetMode) {
+  document.body.classList.add('widget-mode');
+}
 
 hydrateForm();
 render();
@@ -125,6 +132,8 @@ function render() {
     countdownTarget.textContent = 'Set a date and time';
     countdownStatus.textContent = 'This device stores its own countdown locally for long-term persistence.';
     updateClock(0, 0, 0, 0);
+    updateDayFocus(0, 'days left');
+    document.title = 'Countdown';
     return;
   }
 
@@ -132,6 +141,8 @@ function render() {
   if (Number.isNaN(targetDate.getTime())) {
     countdownStatus.textContent = 'Saved date is invalid. Please update it.';
     updateClock(0, 0, 0, 0);
+    updateDayFocus(0, 'days left');
+    document.title = 'Countdown';
     return;
   }
 
@@ -151,10 +162,14 @@ function render() {
   updateClock(days, hours, minutes, seconds);
 
   if (diffMs <= 0) {
+    updateDayFocus(0, 'time reached');
+    document.title = `${state.label || 'Countdown'} — reached`;
     countdownStatus.textContent = state.notes
       ? `Time reached. ${state.notes}`
       : 'Time reached.';
   } else {
+    updateDayFocus(days, days === 1 ? 'day left' : 'days left');
+    document.title = `${days}d left — ${state.label || 'Countdown'}`;
     const backupDate = new Date(state.keepUntil);
     countdownStatus.textContent = `Saved on this device. Backup retention target: ${backupDate.toLocaleDateString()}.`;
   }
@@ -165,6 +180,11 @@ function updateClock(days, hours, minutes, seconds) {
   hoursEl.textContent = String(hours).padStart(2, '0');
   minutesEl.textContent = String(minutes).padStart(2, '0');
   secondsEl.textContent = String(seconds).padStart(2, '0');
+}
+
+function updateDayFocus(days, label) {
+  daysLargeEl.textContent = String(days);
+  daysLargeLabelEl.textContent = label;
 }
 
 function addYearsIso(date, years) {

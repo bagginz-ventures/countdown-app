@@ -82,6 +82,30 @@ h1, h2, h3, p {
   margin-bottom: 24px;
 }
 
+.day-focus {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 24px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(34, 197, 94, 0.14));
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.day-focus-number {
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 800;
+  line-height: 0.9;
+}
+
+.day-focus-text {
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
 .clock-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -161,6 +185,62 @@ button, .import-label {
 .info-card ul {
   padding-left: 18px;
   color: var(--muted);
+}
+
+.widget-tip {
+  color: var(--muted);
+}
+
+code {
+  padding: 0.2rem 0.45rem;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.76);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+body.widget-mode .topbar,
+body.widget-mode .form-card,
+body.widget-mode .info-card,
+body.widget-mode .clock-grid,
+body.widget-mode .status {
+  display: none;
+}
+
+body.widget-mode {
+  background: linear-gradient(180deg, #0f172a 0%, var(--bg) 100%);
+}
+
+body.widget-mode .app-shell {
+  width: min(520px, calc(100% - 20px));
+  padding: 12px 0 20px;
+}
+
+body.widget-mode .layout {
+  grid-template-columns: 1fr;
+  margin-top: 0;
+}
+
+body.widget-mode .hero-card {
+  grid-column: span 1;
+  padding: 26px;
+}
+
+body.widget-mode .countdown-target {
+  font-size: clamp(1.4rem, 4vw, 2.1rem);
+  margin-bottom: 16px;
+}
+
+body.widget-mode .day-focus {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 28px 20px;
+}
+
+body.widget-mode .day-focus-number {
+  font-size: clamp(5rem, 20vw, 8rem);
 }
 
 @media (max-width: 760px) {

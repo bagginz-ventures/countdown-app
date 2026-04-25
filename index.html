@@ -26,6 +26,12 @@
             <p id="countdownLabel" class="countdown-label">No countdown selected</p>
             <h2 id="countdownTarget" class="countdown-target">Set a date and time</h2>
           </div>
+
+          <div class="day-focus" aria-live="polite">
+            <div class="day-focus-number" id="daysLarge">0</div>
+            <div class="day-focus-text" id="daysLargeLabel">days left</div>
+          </div>
+
           <div class="clock-grid" aria-live="polite">
             <div class="clock-box"><span id="days">0</span><label>Days</label></div>
             <div class="clock-box"><span id="hours">0</span><label>Hours</label></div>
@@ -59,6 +65,7 @@
 
         <section class="card info-card">
           <h3>How persistence works</h3>
+          <p class="widget-tip">Tip: open <code>?view=widget</code> at the end of the URL for a compact days-left view.</p>
           <ul>
             <li>Each device stores its own countdown locally.</li>
             <li>Data persists across refreshes, reboots, and offline use.</li>
