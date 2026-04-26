@@ -1,4 +1,4 @@
-const CACHE_NAME = 'countdown-tool-cache-v1';
+const CACHE_NAME = 'countdown-tool-cache-v2';
 const ASSETS = [
   './',
   './index.html',

@@ -198,39 +198,39 @@ code {
   border: 1px solid rgba(148, 163, 184, 0.18);
 }
 
-body.widget-mode .topbar,
-body.widget-mode .form-card,
-body.widget-mode .info-card,
-body.widget-mode .clock-grid,
-body.widget-mode .status {
+html.widget-mode .topbar,
+html.widget-mode .form-card,
+html.widget-mode .info-card,
+html.widget-mode .clock-grid,
+html.widget-mode .status {
   display: none;
 }
 
-body.widget-mode {
+html.widget-mode {
   background: linear-gradient(180deg, #0f172a 0%, var(--bg) 100%);
 }
 
-body.widget-mode .app-shell {
+html.widget-mode .app-shell {
   width: min(520px, calc(100% - 20px));
   padding: 12px 0 20px;
 }
 
-body.widget-mode .layout {
+html.widget-mode .layout {
   grid-template-columns: 1fr;
   margin-top: 0;
 }
 
-body.widget-mode .hero-card {
+html.widget-mode .hero-card {
   grid-column: span 1;
   padding: 26px;
 }
 
-body.widget-mode .countdown-target {
+html.widget-mode .countdown-target {
   font-size: clamp(1.4rem, 4vw, 2.1rem);
   margin-bottom: 16px;
 }
 
-body.widget-mode .day-focus {
+html.widget-mode .day-focus {
   display: grid;
   gap: 8px;
   justify-items: center;
@@ -239,7 +239,7 @@ body.widget-mode .day-focus {
   padding: 28px 20px;
 }
 
-body.widget-mode .day-focus-number {
+html.widget-mode .day-focus-number {
   font-size: clamp(5rem, 20vw, 8rem);
 }
 
