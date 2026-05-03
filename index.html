@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Countdown" />
     <script>
       if (new URLSearchParams(window.location.search).get('view') === 'widget') {
         document.documentElement.classList.add('widget-mode');
@@ -12,24 +15,77 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="icons/icon-192.png" />
-    <title>Countdown</title>
+    <title>Countdown (Obsolete)</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Pinned countdown</p>
-          <h1>Countdown</h1>
+          <p class="eyebrow">Obsolete project</p>
+          <h1>Countdown (Deprecated)</h1>
         </div>
-        <button id="installButton" class="ghost hidden" type="button">Install</button>
+        <div class="topbar-actions">
+          <button id="widgetButton" class="ghost" type="button">Compact view</button>
+          <button id="installButton" class="ghost hidden" type="button">Install</button>
+          <button id="menuButton" class="ghost help-button" type="button" aria-expanded="false" aria-controls="helpDrawer" aria-label="Open help menu">
+            ?
+          </button>
+        </div>
       </header>
+
+      <aside id="helpDrawer" class="help-drawer hidden" aria-hidden="true">
+        <div class="help-drawer-header">
+          <div>
+            <p class="eyebrow">How to</p>
+            <h2>Use this countdown app</h2>
+          </div>
+          <button id="closeMenuButton" class="ghost" type="button" aria-label="Close how-to menu">Close</button>
+        </div>
+
+        <div class="help-drawer-body">
+          <section>
+            <h3>Features</h3>
+            <ul>
+              <li>Shows a live countdown to your saved target date and time.</li>
+              <li>Saves one countdown on this device.</li>
+              <li>Optionally shows a notification when the countdown finishes.</li>
+              <li>Supports backup export and import.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Main buttons</h3>
+            <ul>
+              <li><strong>Save countdown</strong> — saves the current label, date, time, notes, and notification setting.</li>
+              <li><strong>Clear</strong> — removes the saved countdown from this device.</li>
+              <li><strong>Compact view</strong> — opens the simplified widget-style view.</li>
+              <li><strong>Export backup</strong> — downloads the current countdown as JSON.</li>
+              <li><strong>Import backup</strong> — restores a previously exported countdown file.</li>
+              <li><strong>Copy compact link</strong> — copies a direct link to the compact view.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Compact widget view</h3>
+            <ul>
+              <li>Shows the countdown in a cleaner, smaller layout.</li>
+              <li>Best for keeping visible in a narrow always-open window.</li>
+              <li>Hides the form and extra controls so the countdown stays front and center.</li>
+            </ul>
+          </section>
+        </div>
+      </aside>
+
+      <div id="drawerBackdrop" class="drawer-backdrop hidden" aria-hidden="true"></div>
 
       <main class="layout">
         <section class="card hero-card">
+          <p class="status"><strong>This web app is obsolete.</strong> It is retained only as a reference build and should not be used as the active product direction.</p>
           <div class="hero-copy">
             <p id="countdownLabel" class="countdown-label">No countdown selected</p>
             <h2 id="countdownTarget" class="countdown-target">Set a date and time</h2>
+            <p id="countdownMeta" class="countdown-meta">Your local timezone will be used for this device.</p>
           </div>
 
           <div class="day-focus" aria-live="polite">
@@ -43,6 +99,12 @@
             <div class="clock-box"><span id="minutes">0</span><label>Minutes</label></div>
             <div class="clock-box"><span id="seconds">0</span><label>Seconds</label></div>
           </div>
+
+          <div class="progress-wrap" aria-hidden="true">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+          <p id="countdownNotes" class="countdown-notes hidden"></p>
           <p id="countdownStatus" class="status">Your countdown is saved on this device and will stay after refreshes.</p>
         </section>
 
@@ -61,6 +123,10 @@
               Notes (optional)
               <textarea id="notesInput" name="notes" rows="3" maxlength="200" placeholder="Optional details"></textarea>
             </label>
+            <label class="toggle-row">
+              <input id="notifyInput" name="notifyOnFinish" type="checkbox" />
+              <span>Notify me when the countdown finishes on this device</span>
+            </label>
             <div class="button-row">
               <button class="primary" type="submit">Save countdown</button>
               <button id="clearButton" class="ghost" type="button">Clear</button>
@@ -69,20 +135,21 @@
         </section>
 
         <section class="card info-card">
-          <h3>How persistence works</h3>
-          <p class="widget-tip">Tip: open <code>?view=widget</code> at the end of the URL for a compact days-left view.</p>
+          <h3>Use it like an app</h3>
+          <p class="widget-tip">Tip: the compact view is good for a pinned browser tab, a tiny app window, or an Android shortcut.</p>
           <ul>
             <li>Each device stores its own countdown locally.</li>
             <li>Data persists across refreshes, reboots, and offline use.</li>
             <li>If you install the app to your home screen, it behaves more like an app.</li>
             <li>For multi-year safety, export and import backup support is included.</li>
           </ul>
-          <div class="button-row">
+          <div class="button-row wrap-row">
             <button id="exportButton" class="ghost" type="button">Export backup</button>
             <label class="import-label ghost">
               Import backup
               <input id="importInput" type="file" accept="application/json" hidden />
             </label>
+            <button id="copyWidgetLinkButton" class="ghost" type="button">Copy compact link</button>
           </div>
         </section>
       </main>

@@ -1,9 +1,11 @@
 {
-  "name": "Countdown",
-  "short_name": "Countdown",
-  "description": "A simple installable countdown app with durable per-device storage.",
+  "name": "Countdown (Obsolete)",
+  "short_name": "Obsolete",
+  "description": "Deprecated countdown web app kept only as an obsolete reference build.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#020617",
   "theme_color": "#0f172a",
   "icons": [

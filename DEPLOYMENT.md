@@ -1,5 +1,9 @@
 # Deployment Notes
 
+## Status: Obsolete / Deprecated
+
+These deployment notes are retained for historical reference only. The web app is no longer the recommended product direction.
+
 ## Goal
 
 Deploy the Countdown App for free online so it can be opened from multiple phones and computers while still allowing **each device to keep its own countdown**.
